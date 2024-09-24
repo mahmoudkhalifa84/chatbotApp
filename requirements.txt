@@ -1,7 +1,7 @@
-flask faiss-cpu
-transformers
+flask
+faiss-cpu
 torch
-huggingface_hub
-pyngrok
-faiss-gpu
+transformers
 flask-cors
+gunicorn
+pyngrok
