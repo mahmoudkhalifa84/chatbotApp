@@ -1,7 +1,8 @@
-flask
-faiss-cpu
-torch
-transformers
-flask-cors
-gunicorn
-pyngrok
+Flask==2.3.3
+flask-cors==3.0.10
+faiss-cpu==1.7.3
+transformers==4.31.0
+torch==2.0.1
+numpy==1.23.5
+pickle5==0.0.12  # For handling pickle files
+gunicorn==20.1.0

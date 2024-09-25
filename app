@@ -9,17 +9,11 @@ import os
 import pickle
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Enable CORS to handle cross-origin requests if necessary
 
-# Create a 'data' directory to store the files
-data_dir = os.path.join(os.getcwd(), "data")
-if not os.path.exists(data_dir):
-    os.makedirs(data_dir)
-
-# Updated paths for saving embeddings and loading documents
-embedding_file_path = os.path.join(data_dir, "document_embeddings.pkl")
-documents_file_path = os.path.join(data_dir, "documents.txt")
-log_file_path = os.path.join(data_dir, "doc.txt")
+# Paths for saving embeddings and loading documents
+embedding_file_path = os.path.join(os.getcwd(), "document_embeddings.pkl")
+documents_file_path = os.path.join(os.getcwd(), "documents.txt")
 
 # Load pre-trained model and tokenizer for embeddings
 embedding_model_name = "sentence-transformers/all-MiniLM-L6-v2"
@@ -92,14 +86,13 @@ def chat():
     answer = response['answer']
 
     # Log the conversation to a file
-    with open(log_file_path, "a", encoding="utf-8") as f:
+    with open(os.path.join(os.getcwd(), "chat_logs.txt"), "a", encoding="utf-8") as f:
         f.write(f"Question: {user_input}\n")
         f.write(f"Answer: {answer}\n")
         f.write("=" * 50 + "\n")  # Separator for readability
 
     return jsonify({"response": answer})
 
-# Run the app
+# Run the app using Gunicorn
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Use dynamic port or default to 5000
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=5000)
